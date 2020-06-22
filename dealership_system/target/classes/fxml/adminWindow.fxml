@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<TabPane fx:id="generalTabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.databazy.AdminWindowController">
+  <tabs>
+    <Tab fx:id="producenciTabPane" text="Producenci ">
+      <content>
+        <AnchorPane fx:id="producenciAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="361.0" prefWidth="910.0">
+               <children>
+                  <ListView fx:id="producenciListView" layoutX="645.0" layoutY="48.0" prefHeight="452.0" prefWidth="341.0" />
+                  <Label fx:id="producenciListViewLabel" layoutX="645.0" layoutY="27.0" text="Marki samochodów" />
+                  <TextField fx:id="producenciMarkaTextField" layoutX="30.0" layoutY="138.0" prefHeight="61.0" prefWidth="218.0" promptText="marka">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="producenciWszystkieMarkiButton" layoutX="29.0" layoutY="380.0" mnemonicParsing="false" onMouseClicked="#producenciWszystkieMarkiButtonClicked" prefHeight="65.0" prefWidth="221.0" text="Wszystkie marki">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="producenciSzukajMarkiButton" layoutX="30.0" layoutY="255.0" mnemonicParsing="false" onMouseClicked="#producenciSzukajMarkiButtonClicked" prefHeight="65.0" prefWidth="220.0" text="Szukaj marki">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="producenciWyszukajProducentaLabel" layoutX="33.0" layoutY="38.0" text="Wyszukaj producenta">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Separator fx:id="producenciLewySeparator" layoutX="280.0" layoutY="29.0" orientation="VERTICAL" prefHeight="503.0" prefWidth="0.0" />
+                  <Separator fx:id="producenciPrawySeparator" layoutX="608.0" layoutY="33.0" orientation="VERTICAL" prefHeight="503.0" prefWidth="0.0" />
+                  <Button fx:id="producenciNowyProducentButton" layoutX="317.0" layoutY="138.0" mnemonicParsing="false" onMouseClicked="#producenciNowyProducentButtonClicked" text="Nowy producent">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="producenciDodajProducentaLabel" layoutX="352.0" layoutY="38.0" text="Dodaj producenta">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="producenciNazwaProducentaTextField" disable="true" layoutX="298.0" layoutY="262.0" promptText="nazwa producenta">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="producenciDodajProducentaButton" disable="true" layoutX="325.0" layoutY="385.0" mnemonicParsing="false" onMouseClicked="#producenciDodajProducentaButtonClicked" text="Dodaj producenta">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="producenciUsunButton" layoutX="778.0" layoutY="510.0" mnemonicParsing="false" onMouseClicked="#producenciUsunButtonClicked" text="Usun" textFill="RED">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Button>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+      <Tab fx:id="modeleTabPane" text="Modele">
+         <content>
+            <AnchorPane fx:id="modeleAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="361.0" prefWidth="910.0">
+               <children>
+                  <ListView fx:id="modeleListView" layoutX="645.0" layoutY="48.0" prefHeight="452.0" prefWidth="341.0" />
+                  <Label fx:id="modeleListViewLabel" layoutX="645.0" layoutY="27.0" text="Marki samochodów" />
+                  <TextField fx:id="modeleMarkaTextField" layoutX="37.0" layoutY="114.0" prefHeight="28.0" prefWidth="220.0" promptText="marka">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="modeleWszystkieModeleButton" layoutX="29.0" layoutY="380.0" mnemonicParsing="false" onMouseClicked="#modeleWszystkieModeleButtonClicked" prefHeight="65.0" prefWidth="221.0" text="Wszystkie modele">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="modeleSzukajModeluButton" layoutX="30.0" layoutY="262.0" mnemonicParsing="false" onMouseClicked="#modeleSzukajModeluButtonClicked" prefHeight="65.0" prefWidth="220.0" text="Szukaj modelu">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="modeleWyszukajModelLabel" layoutX="53.0" layoutY="38.0" text="Wyszukaj model">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Separator fx:id="modeleLewySeparator" layoutX="280.0" layoutY="29.0" orientation="VERTICAL" prefHeight="503.0" prefWidth="0.0" />
+                  <Separator fx:id="modelePrawySeparator" layoutX="608.0" layoutY="33.0" orientation="VERTICAL" prefHeight="503.0" prefWidth="0.0" />
+                  <Button fx:id="modeleNowyModelButton" layoutX="339.0" layoutY="88.0" mnemonicParsing="false" onMouseClicked="#modeleNowyModelButtonClicked" text="Nowy model">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="modeleDodajModelLabel" layoutX="352.0" layoutY="38.0" text="Dodaj model">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="modeleDodajModelButton" disable="true" layoutX="355.0" layoutY="482.0" mnemonicParsing="false" onMouseClicked="#modeleDodajModelButtonClicked" text="Dodaj model">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="modeleUsunButton" layoutX="778.0" layoutY="510.0" mnemonicParsing="false" onMouseClicked="#modeleUsunButtonClicked" text="Usuń" textFill="RED">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Button>
+                  <TextField fx:id="modeleModelTextField" layoutX="37.0" layoutY="179.0" prefHeight="28.0" prefWidth="220.0" promptText="model">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="modeleNazwaModeluTextField" disable="true" layoutX="309.0" layoutY="210.0" prefHeight="39.0" prefWidth="268.0" promptText="nazwa modelu">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="modelePojemnoscSilnikaTextField" disable="true" layoutX="309.0" layoutY="259.0" prefHeight="39.0" prefWidth="268.0" promptText="pojemność silnika">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="modeleMocSilnikaTextField" disable="true" layoutX="309.0" layoutY="307.0" prefHeight="39.0" prefWidth="268.0" promptText="moc silnika">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="modeleCenaBazowaTextField" disable="true" layoutX="309.0" layoutY="356.0" prefHeight="39.0" prefWidth="268.0" promptText="cena bazowa">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <ComboBox fx:id="modeleMarkaComboBox" disable="true" layoutX="310.0" layoutY="164.0" prefHeight="31.0" prefWidth="266.0" promptText="marka" />
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+      <Tab fx:id="pakietyTabPane" text="Pakiety">
+         <content>
+            <AnchorPane fx:id="pakietyAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="361.0" prefWidth="910.0">
+               <children>
+                  <ListView fx:id="pakietyListView" layoutX="645.0" layoutY="48.0" prefHeight="452.0" prefWidth="341.0" />
+                  <Label fx:id="pakietyListViewLabel" layoutX="645.0" layoutY="27.0" text="Pakiety" />
+                  <TextField fx:id="pakietyPakietTextField" layoutX="30.0" layoutY="138.0" prefHeight="61.0" prefWidth="218.0" promptText="pakiet">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="pakietyWszystkiePakietyButton" layoutX="29.0" layoutY="380.0" mnemonicParsing="false" onMouseClicked="#pakietyWszystkiePakietyButtonClicked" prefHeight="65.0" prefWidth="221.0" text="Wszystkie pakiety">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="pakietySzukajPakietuButton" layoutX="30.0" layoutY="255.0" mnemonicParsing="false" onMouseClicked="#pakietySzukajPakietuButtonClicked" prefHeight="65.0" prefWidth="220.0" text="Szukaj pakietu">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="pakietyWyszukajPakietLabel" layoutX="54.0" layoutY="38.0" text="Wyszukaj pakiet">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Separator fx:id="pakietyLewySeparator" layoutX="280.0" layoutY="29.0" orientation="VERTICAL" prefHeight="503.0" prefWidth="0.0" />
+                  <Separator fx:id="pakietyPrawySeparator" layoutX="608.0" layoutY="33.0" orientation="VERTICAL" prefHeight="503.0" prefWidth="0.0" />
+                  <Button fx:id="pakietyNowyPakietButton" layoutX="344.0" layoutY="138.0" mnemonicParsing="false" onMouseClicked="#pakietyNowyPakietButtonClicked" text="Nowy pakiet">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="pakietyDodajPakietLabel" layoutX="380.0" layoutY="38.0" text="Dodaj pakiet">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="pakietyNazwaPakietuTextField" disable="true" layoutX="299.0" layoutY="230.0" promptText="nazwa pakietu">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="pakietyDodajPakietButton" disable="true" layoutX="344.0" layoutY="389.0" mnemonicParsing="false" onMouseClicked="#pakietyDodajPakietButtonClicked" text="Dodaj pakiet">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="pakietyUsunButton" layoutX="778.0" layoutY="510.0" mnemonicParsing="false" onMouseClicked="#pakietyUsunButtonClicked" text="Usuń" textFill="RED">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Button>
+                  <TextField fx:id="pakietyCenaPakietuTextField" disable="true" layoutX="298.0" layoutY="295.0" promptText="cena pakietu">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+      <Tab fx:id="koloryTabPane" text="Kolory">
+         <content>
+            <AnchorPane fx:id="koloryAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="361.0" prefWidth="910.0">
+               <children>
+                  <ListView fx:id="koloryListView" layoutX="645.0" layoutY="48.0" prefHeight="452.0" prefWidth="341.0" />
+                  <Label fx:id="koloryListViewLabel" layoutX="645.0" layoutY="27.0" text="Kolory" />
+                  <TextField fx:id="koloryKolorTextField" layoutX="30.0" layoutY="138.0" prefHeight="61.0" prefWidth="218.0" promptText="kolor">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="koloryWszystkieKoloryButton" layoutX="29.0" layoutY="380.0" mnemonicParsing="false" onMouseClicked="#koloryWszystkieKoloryButtonClicked" prefHeight="65.0" prefWidth="221.0" text="Wszystkie kolory">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="kolorySzukajKoloruButton" layoutX="30.0" layoutY="255.0" mnemonicParsing="false" onMouseClicked="#kolorySzukajKoloruButtonClicked" prefHeight="65.0" prefWidth="220.0" text="Szukaj koloru">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="koloryWyszukajKolorLabel" layoutX="59.0" layoutY="38.0" text="Wyszukaj kolor">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Separator fx:id="koloryLewySeparator" layoutX="280.0" layoutY="29.0" orientation="VERTICAL" prefHeight="503.0" prefWidth="0.0" />
+                  <Separator fx:id="koloryPrawySeparator" layoutX="608.0" layoutY="33.0" orientation="VERTICAL" prefHeight="503.0" prefWidth="0.0" />
+                  <Button fx:id="koloryNowyKolorButton" layoutX="344.0" layoutY="138.0" mnemonicParsing="false" onMouseClicked="#koloryNowyKolorButtonClicked" text="Nowy kolor">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="koloryDodajKolorLabel" layoutX="386.0" layoutY="38.0" text="Dodaj kolor">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="koloryNazwaKoloruTextField" disable="true" layoutX="299.0" layoutY="230.0" promptText="nazwa koloru">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="koloryDodajKolorButton" disable="true" layoutX="355.0" layoutY="385.0" mnemonicParsing="false" onMouseClicked="#koloryDodajKolorButtonClicked" text="Dodaj kolor">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="koloryUsunButton" layoutX="778.0" layoutY="510.0" mnemonicParsing="false" onMouseClicked="#koloryUsunButtonClicked" text="Usuń" textFill="RED">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Button>
+                  <TextField fx:id="koloryCenaKoloruTextField" disable="true" layoutX="298.0" layoutY="295.0" promptText="cena koloru">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+      <Tab fx:id="klienciTabPane" text="Klienci">
+         <content>
+            <AnchorPane fx:id="klienciAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="361.0" prefWidth="910.0">
+               <children>
+                  <ListView fx:id="klienciListView" layoutX="645.0" layoutY="48.0" prefHeight="452.0" prefWidth="341.0" />
+                  <Label fx:id="klienciListViewLabel" layoutX="645.0" layoutY="27.0" text="Klienci" />
+                  <TextField fx:id="klienciImieTextField" layoutX="31.0" layoutY="94.0" prefHeight="54.0" prefWidth="218.0" promptText="imię">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="klienciWszyscyKlienciButton" layoutX="29.0" layoutY="380.0" mnemonicParsing="false" onMouseClicked="#klienciWszyscyKlienciButtonClicked" prefHeight="65.0" prefWidth="221.0" text="Wszyscy klienci">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="klienciSzukajKlientaButton" layoutX="30.0" layoutY="255.0" mnemonicParsing="false" onMouseClicked="#klienciSzukajKlientaButtonClicked" prefHeight="65.0" prefWidth="220.0" text="Szukaj klienta">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="klienciWyszukajKlientaLabel" layoutX="52.0" layoutY="38.0" text="Wyszukaj klienta">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Separator fx:id="klienciLewySeparator" layoutX="280.0" layoutY="29.0" orientation="VERTICAL" prefHeight="503.0" prefWidth="0.0" />
+                  <Separator fx:id="klienciPrawySeparator" layoutX="608.0" layoutY="33.0" orientation="VERTICAL" prefHeight="503.0" prefWidth="0.0" />
+                  <Button fx:id="klienciNowyKlientButton" layoutX="358.0" layoutY="89.0" mnemonicParsing="false" onMouseClicked="#klienciNowyKlientButtonClicked" text="Nowy klient">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="klienciDodajKlientaLabel" layoutX="387.0" layoutY="38.0" text="Dodaj klienta">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="klienciNowyNazwiskoTextField" disable="true" layoutX="299.0" layoutY="230.0" promptText="nazwisko">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="klienciDodajKlientaButton" disable="true" layoutX="353.0" layoutY="385.0" mnemonicParsing="false" onMouseClicked="#klienciDodajKlientaButtonClicked" text="Dodaj klienta">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="klienciUsunButton" layoutX="778.0" layoutY="510.0" mnemonicParsing="false" onMouseClicked="#klienciUsunButtonClicked" text="Usuń" textFill="RED">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Button>
+                  <TextField fx:id="klienciNumerTelefonuTextField" disable="true" layoutX="298.0" layoutY="295.0" promptText="numer telefonu">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="klienciNazwiskoTextField" layoutX="31.0" layoutY="171.0" prefHeight="54.0" prefWidth="218.0" promptText="nazwisko">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="klienciNowyImieTextField" disable="true" layoutX="298.0" layoutY="166.0" promptText="imię">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TextField>
+                  <Label fx:id="klienciDodajBlad" layoutX="344.0" layoutY="473.0" prefHeight="45.0" prefWidth="200.0" textFill="RED">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+      <Tab fx:id="ofertaTabPane" text="Oferta">
+        <content>
+          <AnchorPane fx:id="ofertaAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TabPane fx:id="subTabPane" prefHeight="561.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                      <Tab fx:id="ofertaSprzedazyTabPane" text="Oferta sprzedaży">
+                        <content>
+                          <AnchorPane fx:id="ofertaSprzedazyAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <ListView fx:id="ofertaSprzedazyListView" layoutX="500.0" layoutY="45.0" prefHeight="433.0" prefWidth="476.0" />
+                                    <TextField fx:id="ofertaSprzedazyMarkaTextField" layoutX="35.0" layoutY="80.0" prefHeight="10.0" prefWidth="207.0" promptText="marka">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </TextField>
+                                    <TextField fx:id="ofertaSprzedazyModelTextField" layoutX="35.0" layoutY="140.0" prefHeight="15.0" prefWidth="208.0" promptText="model">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </TextField>
+                                    <TextField fx:id="ofertaSprzedazyKolorTextField" layoutX="271.0" layoutY="80.0" prefHeight="13.0" prefWidth="208.0" promptText="kolor">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </TextField>
+                                    <Label fx:id="ofertaSprzedazyWyszukajWOfercieLabel" layoutX="47.0" layoutY="28.0" text="Wyszukaj w ofercie">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="ofertaSprzedazySzukajOfertyButton" layoutX="271.0" layoutY="137.0" mnemonicParsing="false" onMouseClicked="#ofertaSprzedazySzukajOfertyButtonClicked" prefHeight="43.0" prefWidth="208.0" text="Szukaj oferty">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Button>
+                                    <Label fx:id="ofertaSprzedazyListViewLabel" layoutX="500.0" layoutY="16.0" text="Marka | Model | Pojemność | Moc | Rok | Kolor | Pakiet | Cena | Ilość ">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Separator fx:id="ofertaSprzedazySeparator" layoutX="29.0" layoutY="263.0" prefHeight="0.0" prefWidth="446.0" />
+                                    <Button fx:id="ofertaSprzedazyWszystkieOfertyButton" layoutX="148.0" layoutY="201.0" mnemonicParsing="false" onMouseClicked="#ofertaSprzedazyWszystkieOfertyButtonClicked" prefHeight="43.0" prefWidth="208.0" text="Wszystkie oferty">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Button>
+                                    <Label fx:id="ofertaSprzedazyRezerwujLabel" layoutX="47.0" layoutY="277.0" text="Rezerwuj">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="ofertaSprzedazyRezerwujButton" layoutX="318.0" layoutY="338.0" mnemonicParsing="false" onMouseClicked="#ofertaSprzedazyRezerwujButtonClicked" prefHeight="43.0" prefWidth="170.0" text="Rezerwuj">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Button>
+                                    <ComboBox fx:id="ofertaSprzedazyKlientComboBox" layoutX="47.0" layoutY="381.0" prefHeight="31.0" prefWidth="250.0" promptText="Klient" />
+                                    <TextField fx:id="ofertaSprzedazyIloscSztukTextField" layoutX="48.0" layoutY="322.0" promptText="Ilość sztuk">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                        <Tab fx:id="edycjaOfertyTabPane" text="Edycja oferty">
+                           <content>
+                              <AnchorPane fx:id="edycjaOfertyAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <ListView fx:id="edycjaOfertyListView" layoutX="500.0" layoutY="45.0" prefHeight="419.0" prefWidth="476.0" />
+                                    <Label fx:id="edycjaOfertyListViewLabel" layoutX="500.0" layoutY="16.0" text="Marka | Model | Pojemność | Moc | Rok | Kolor | Pakiet | Cena | Ilość ">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="edycjaOfertyUsunButton" layoutX="680.0" layoutY="464.0" mnemonicParsing="false" onMouseClicked="#edycjaOfertyUsunButtonClicked" prefHeight="51.0" prefWidth="119.0" text="Usuń" textFill="RED">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Button>
+                                    <ComboBox fx:id="edycjaOfertyModelComboBox" layoutX="14.0" layoutY="87.0" prefHeight="31.0" prefWidth="466.0" promptText="Model" />
+                                    <Label fx:id="edycjaOfertyDodajOferteLabel" layoutX="181.0" layoutY="41.0" text="Dodaj oferte">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <DatePicker fx:id="edycjaOfertyDatePicker" layoutX="134.0" layoutY="199.0" prefHeight="40.0" prefWidth="227.0" promptText="Data produkcji" />
+                                    <ComboBox fx:id="edycjaOfertyKolorComboBox" layoutX="280.0" layoutY="145.0" prefHeight="31.0" prefWidth="200.0" promptText="Kolor" />
+                                    <ComboBox fx:id="edycjaOfertyPakietComboBox" layoutX="14.0" layoutY="145.0" prefHeight="31.0" prefWidth="200.0" promptText="Pakiet" />
+                                    <Button fx:id="edycjaOfertyDodajOferteButton" layoutX="178.0" layoutY="261.0" mnemonicParsing="false" onMouseClicked="#edycjaOfertyDodajOferteButtonClicked" text="Dodaj oferte">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Button>
+                                    <Separator fx:id="edycjaOfertySeparator" layoutX="26.0" layoutY="327.0" prefHeight="0.0" prefWidth="447.0" />
+                                    <TextField fx:id="edycjaOfertyIloscTextField" layoutX="156.0" layoutY="385.0" prefHeight="32.0" prefWidth="183.0" promptText="ilość">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </TextField>
+                                    <Label fx:id="edycjaOfertyDodajDoMagazynuLabel" layoutX="140.0" layoutY="341.0" text="Dodaj do magazynu">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="edycjaOfertyDodajButton" layoutX="214.0" layoutY="433.0" mnemonicParsing="false" onMouseClicked="#edycjaOfertyDodajButtonClicked" text="Dodaj" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                    </tabs>
+                  </TabPane>
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+      <Tab fx:id="rezerwacjeTabPane" text="Rezerwacje">
+         <content>
+            <AnchorPane fx:id="rezerwacjeAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="361.0" prefWidth="910.0">
+               <children>
+                  <ListView fx:id="rezerwacjeListView" layoutX="296.0" layoutY="48.0" prefHeight="452.0" prefWidth="690.0" />
+                  <Label fx:id="rezerwacjeListViewLabel" layoutX="296.0" layoutY="27.0" prefHeight="20.0" prefWidth="691.0" text="Imię | Nazwisko | Data rezerwacji | Marka | Model | Pojemność | Moc | Rok produkcji | Kolor | Pakiet | Cena | Ilość " />
+                  <TextField fx:id="rezerwacjeImieTextField" layoutX="31.0" layoutY="94.0" prefHeight="54.0" prefWidth="218.0" promptText="imię">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="rezerwacjeWszystkieRezerwacjeButton" layoutX="29.0" layoutY="380.0" mnemonicParsing="false" onMouseClicked="#rezerwacjeWszystkieRezerwacjeButtonClicked" prefHeight="65.0" prefWidth="221.0" text="Wszystkie rezerwacje">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="rezerwacjeSzukajRezerwacjiButton" layoutX="30.0" layoutY="255.0" mnemonicParsing="false" onMouseClicked="#rezerwacjeSzukajRezerwacjiButtonClicked" prefHeight="65.0" prefWidth="220.0" text="Szukaj rezerwacji">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="rezerwacjeWyszukajRezerwacjeLabel" layoutX="32.0" layoutY="38.0" text="Wyszukaj rezerwacje">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Separator layoutX="280.0" layoutY="29.0" orientation="VERTICAL" prefHeight="503.0" prefWidth="0.0" />
+                  <Button fx:id="rezerwacjeUsunButton" layoutX="603.0" layoutY="510.0" mnemonicParsing="false" onMouseClicked="#rezerwacjeUsunButton" text="Usuń" textFill="RED">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Button>
+                  <TextField fx:id="rezerwacjeNazwiskoTextField" layoutX="31.0" layoutY="171.0" prefHeight="54.0" prefWidth="218.0" promptText="nazwisko">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+      <Tab text="Konsola administratora">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="53.0" layoutY="38.0" prefHeight="24.0" prefWidth="230.0" />
+                  <Button fx:id="konsolaZaladujButton" layoutX="36.0" layoutY="350.0" mnemonicParsing="false" onAction="#konsolaZaladujButtonClicked" prefHeight="59.0" prefWidth="265.0" text="Zładuj baze z kopii zapasowej" />
+                  <Button fx:id="konsolaBackupButton" layoutX="36.0" layoutY="270.0" mnemonicParsing="false" onAction="#konsolaBacupButtonClicked" prefHeight="59.0" prefWidth="265.0" text="Stwórz kopie zapasową" />
+                  <Button fx:id="konsolaNowyButton" layoutX="36.0" layoutY="190.0" mnemonicParsing="false" onAction="#konsolaNowyButtonClicked" prefHeight="59.0" prefWidth="265.0" text="Nowy użytkownik" />
+                  <ImageView fitHeight="527.0" fitWidth="380.0" layoutX="363.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/img1.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+  </tabs>
+</TabPane>

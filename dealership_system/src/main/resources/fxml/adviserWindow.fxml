@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.databazy.AdviserWindowController">
+  <tabs>
+    <Tab text="Producenci samochodów">
+      <content>
+        <AnchorPane fx:id="producentNameTextField" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="allProducerButton" layoutX="14.0" layoutY="258.0" mnemonicParsing="false" onAction="#allProducerButtonClicked" prefHeight="25.0" prefWidth="175.0" text="Wszystkie marki" />
+                  <TextField fx:id="producerTextField" layoutX="14.0" layoutY="102.0" prefHeight="25.0" prefWidth="175.0" promptText="marka" />
+                  <Button fx:id="concreteProducerButton" layoutX="14.0" layoutY="173.0" mnemonicParsing="false" onAction="#concreteProducerButtonClicked" prefHeight="25.0" prefWidth="177.0" text="Szukaj marki" />
+                  <ListView fx:id="producersListView" layoutX="233.0" layoutY="48.0" prefHeight="310.0" prefWidth="351.0" />
+                  <Label layoutX="233.0" layoutY="23.0" prefHeight="25.0" prefWidth="116.0" text="Marki samochodów" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab text="Oferta sprzedaży">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="allOfferButton" layoutX="13.0" layoutY="157.0" mnemonicParsing="false" onAction="#allOfferButtonClicked" prefHeight="25.0" prefWidth="175.0" text="Wszystkie oferty" />
+                  <Button fx:id="concreteOfferButton" layoutX="13.0" layoutY="120.0" mnemonicParsing="false" onAction="#concreteOferButtonClicked" prefHeight="25.0" prefWidth="175.0" text="Szukaj oferty" />
+                  <TextField fx:id="offerProducerTextField" layoutX="13.0" layoutY="21.0" prefHeight="25.0" prefWidth="175.0" promptText="marka" />
+                  <TextField fx:id="modelTextField" layoutX="13.0" layoutY="54.0" prefHeight="25.0" prefWidth="175.0" promptText="model" />
+                  <TextField fx:id="colorTextField" layoutX="13.0" layoutY="87.0" prefHeight="25.0" prefWidth="175.0" promptText="kolor" />
+                  <ListView fx:id="offerListView" layoutX="215.0" layoutY="47.0" prefHeight="290.0" prefWidth="370.0" />
+                  <Label layoutX="13.0" layoutY="201.0" prefHeight="17.0" prefWidth="84.0" text="Rezerwacja" />
+                  <TextField fx:id="amuntTextField" layoutX="13.0" layoutY="233.0" prefHeight="25.0" prefWidth="175.0" promptText="liczba sztuk" />
+                  <ComboBox fx:id="chooseClientComboBox" layoutX="13.0" layoutY="269.0" prefHeight="25.0" prefWidth="175.0" promptText="klient" />
+                  <Button fx:id="bookButton" layoutX="13.0" layoutY="305.0" mnemonicParsing="false" onAction="#bookButtonClicked" prefHeight="25.0" prefWidth="175.0" text="Rezerwuj" />
+                  <Label layoutX="217.0" layoutY="30.0" prefHeight="17.0" prefWidth="371.0" text="Marka | Model |  Pojemność  | Moc | Rok  | Kolor | Pakiet | Cena | Ilość" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+      <Tab text="Nowy klient">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="192.0" layoutY="14.0" prefHeight="53.0" prefWidth="192.0" text="Nowy klient">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="newFirstNameTextField" layoutX="60.0" layoutY="123.0" prefHeight="47.0" prefWidth="212.0" promptText="imię">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="newLastNameTextField" layoutX="300.0" layoutY="123.0" prefHeight="47.0" prefWidth="212.0" promptText="nazwisko">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="newNumberTextField" layoutX="60.0" layoutY="205.0" prefHeight="56.0" prefWidth="215.0" promptText="numer telefonu">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </TextField>
+                  <Label fx:id="createClientErrorLabel" layoutX="300.0" layoutY="199.0" prefHeight="56.0" prefWidth="213.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="newClientButton" layoutX="197.0" layoutY="281.0" mnemonicParsing="false" onAction="#newClientButtonClicked" prefHeight="58.0" prefWidth="207.0" text="Dodaj klienta" />
+               </children></AnchorPane>
+        </content>
+      </Tab>
+  </tabs>
+</TabPane>
