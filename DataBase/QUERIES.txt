@@ -1,0 +1,316 @@
+KOMENDY UŻYTE DO UTWORZENIA BAZY DANYCH - PROJEKT
+------------------------------------------------------------------------------
+1) Utworzenie bazy danych:
+
+	CREATE DATABASE salon;
+	
+2) Utworznie użytkowników i nadanie uprawnień:
+
+-> Administrator
+	
+	CREATE USER 'admin'@'localhost';
+	SET PASSWORD FOR 'admin'@'localhost' = 'admin';
+	
+	GRANT ALL ON salon.* TO 'admin'@'localhost';
+	
+-> Dealer
+
+	CREATE USER 'dealer'@'localhost';
+	SET PASSWORD FOR 'dealer'@'localhost' = 'dealer';
+	
+	GRANT SELECT, INSERT ON salon.* TO 'dealer'@'localhost'; -- moze dodawac i selectowac ze wszystkich tabel
+	GRANT UPDATE, DROP ON salon.oferta TO 'dealer'@'localhost'; -- moze updatowac i usuwac oferte
+	GRANT UPDATE, DROP ON salon.klienci TO 'dealer'@'localhost'; -- moze updatowac i usuwac klientow
+	GRANT UPDATE, DROP ON salon.pakiety TO 'dealer'@'localhost'; -- moze updatowac i usuwac pakiety
+	GRANT DROP ON salon.dostepni_producenci TO 'dealer'@'localhost'; -- moze usuwac producentow
+	GRANT DROP ON salon.modele TO 'dealer'@'localhost'; -- moze usuwac modele
+	GRANT DROP ON salon.kolory TO 'dealer'@'localhost'; -- moze usuwac kolory
+	GRANT DROP ON salon.rezerwacje TO 'dealer'@'localhost'; -- moze usuwac rezerwacje
+	
+	-- jesli ktos usunal rezerwacje, to stan magazynowy musi sie zwiekszyc, bo te auta ponownie staja sie dostepne do rezerwacji, czyli uruchamiany jest trigger after delete w ktorym uruchamiana jest procedura, ktora bedzie zwiekszala stan magazynowy
+	
+-> Sprzedawca
+
+	CREATE USER 'sprzedawca'@'localhost';
+	SET PASSWORD FOR 'sprzedawca'@'localhost' = 'sprzedawca';
+	
+	GRANT SELECT ON salon.oferta TO 'sprzedawca'@'localhost'; -- moze selectowac oferte
+	GRANT SELECT ON salon.modele TO 'sprzedawca'@'localhost'; -- moze selectowac modele
+	GRANT SELECT ON salon.dostepni_producenci TO 'sprzedawca'@'localhost'; -- moze selectowac producentow
+	GRANT SELECT ON salon.kolory TO 'sprzedawca'@'localhost'; -- moze selectowac kolory
+	GRANT SELECT ON salon.pakiety TO 'sprzedawca'@'localhost'; -- moze selectowac pakiety
+	GRANT INSERT, UPDATE ON salon.klienci TO 'sprzedawca'@'localhost'; -- moze updatowac i dodawac klientow
+	GRANT INSERT, UPDATE, DROP ON salon.rezerwacje TO 'sprzedawca'@'localhost'; - moze dodawac, updatowac i usuwac rezerwacje
+
+
+3) Utworzenie tabel:
+	
+-> dostepni_producenci
+	
+	CREATE TABLE dostepni_producenci(marka VARCHAR(20) NOT NULL, PRIMARY KEY(marka));
+
+-> modele
+
+	CREATE TABLE modele(id_modelu INT NOT NULL AUTO_INCREMENT, marka VARCHAR(20) NOT NULL, model VARCHAR(20), pojemnosc_silnika DOUBLE, moc_silnika INT, cena_bazowa INT, PRIMARY KEY(id_modelu), FOREIGN KEY(marka) REFERENCES dostepni_producenci(marka));
+
+-> oferta
+
+	CREATE TABLE oferta(id_oferty INT NOT NULL AUTO_INCREMENT, id_modelu INT NOT NULL, kolor VARCHAR(20) NOT NULL, nazwa_pakietu VARCHAR(20) NOT NULL, rok_produkcji DATE, cena_calkowita INT DEFAULT 0, stan_magazynowy INT, PRIMARY KEY(id_oferty), FOREIGN KEY(id_modelu) REFERENCES modele(id_modelu), FOREIGN KEY(kolor) REFERENCES kolory(nazwa_koloru), FOREIGN KEY(nazwa_pakietu) REFERENCES pakiety(nazwa_pakietu));
+
+-> rezerwacje
+
+	CREATE TABLE rezerwacje(id_rezerwacji INT NOT NULL AUTO_INCREMENT, id_oferty INT NOT NULL, id_klienta INT NOT NULL, ilosc_zamowionych_sztuk INT, data_rezerwacji DATE, PRIMARY KEY(id_rezerwacji), FOREIGN KEY(id_oferty) REFERENCES oferta(id_oferty), FOREIGN KEY(id_klienta) REFERENCES klienci(id_klienta));
+
+-> klienci
+
+	CREATE TABLE klienci(id_klienta INT NOT NULL AUTO_INCREMENT, imie VARCHAR(50) NOT NULL, nazwisko VARCHAR(50) NOT NULL, numer_telefonu VARCHAR(20), PRIMARY KEY(id_klienta));
+
+-> kolory
+
+	CREATE TABLE kolory(nazwa_koloru VARCHAR(20) NOT NULL, cena_koloru INT NOT NULL, PRIMARY KEY(nazwa_koloru));
+
+-> pakiety
+
+	CREATE TABLE pakiety(nazwa_pakietu VARCHAR(20) NOT NULL, cena_pakietu INT NOT NULL, PRIMARY KEY(nazwa_pakietu));
+	
+-> użytkownicy
+
+	CREATE TABLE uzytkownicy(login VARCHAR(30) NOT NULL, haslo VARCHAR(50) NOT NULL, typ ENUM('admin', 'dealer', 'sprzedawca'), PRIMARY KEY(login));
+	
+	
+	
+[4) Utworzenie indeksów:
+
+	CREATE FULLTEXT INDEX index_marka ON dostepni_producenci(marka);
+	
+	CREATE FULLTEXT INDEX index_nazwa_koloru ON kolory(nazwa_koloru);
+	
+	CREATE FULLTEXT INDEX index_nazwa_pakietu ON pakiety(nazwa_pakietu);]
+	
+
+	
+5) Utworzenie trigger'ów:
+
+TABELA DOSTEPNI_PRODUCENCI:
+=======================================================================================================
+-> usuwanie_producenta
+
+DELIMITER $$
+	CREATE TRIGGER usuwanie_producenta BEFORE DELETE ON dostepni_producenci
+	FOR EACH ROW 
+	BEGIN
+	DECLARE producent_do_usuniecia VARCHAR(20);
+    SET producent_do_usuniecia = OLD.marka;
+	
+    -- teraz skoro wiemy jaki producent zostal usuniety, to musimy usunac modele, ktore sa tego producenta
+	
+	DELETE FROM modele WHERE modele.marka = producent_do_usuniecia;
+END $$
+DELIMITER ;
+=======================================================================================================
+
+TABELA OFERTA:
+=======================================================================================================
+-> ustaw_cene_oferty
+
+DELIMITER $$
+	CREATE TRIGGER ustaw_cene_oferty BEFORE INSERT ON oferta
+	FOR EACH ROW 
+	BEGIN
+	DECLARE wynik INT;
+	CALL oblicz_cene_calkowita(NEW.id_modelu, NEW.kolor, NEW.nazwa_pakietu, wynik);
+    SET NEW.cena_calkowita = wynik;
+END $$
+DELIMITER ;
+
+-> model_constraint
+-> kolor_constraint
+-> pakiet_constraint
+(wszystkie trzy zawarte w jednym)
+
+DELIMITER $$
+	CREATE TRIGGER model_kolor_pakiet_constraint BEFORE INSERT ON oferta
+	FOR EACH ROW 
+	BEGIN
+    IF NOT(EXISTS(SELECT * FROM modele WHERE modele.id_modelu = NEW.id_modelu) AND 
+		EXISTS(SELECT * FROM kolory WHERE kolory.nazwa_koloru = NEW.kolor) AND
+		EXISTS(SELECT * FROM pakiety WHERE pakiety.nazwa_pakietu = NEW.nazwa_pakietu))
+    THEN
+		signal sqlstate '45000'; -- jesli któryś ze składników nie znjaduje się w swojej tabeli to przerwij insertowanie!!!!
+    END IF; 
+END $$
+DELIMITER ;
+
+-> usuwanie_oferty
+
+DELIMITER $$
+	CREATE TRIGGER usuwanie_oferty BEFORE DELETE ON oferta
+	FOR EACH ROW 
+	BEGIN
+	DECLARE oferta_do_usuniecia INT;
+    SET oferta_do_usuniecia = OLD.id_oferty;
+	
+    -- teraz skoro wiemy jaka oferta zostala usunieta, to musimy usunac rezerwacje, ktore zawieraja ta oferte
+	
+	DELETE FROM rezerwacje WHERE rezerwacje.id_oferty = oferta_do_usuniecia;
+END $$
+DELIMITER ;
+
+=======================================================================================================
+
+TABELA MODELE:
+=======================================================================================================
+-> producent_constraint
+
+DELIMITER $$
+	CREATE TRIGGER producent_constraint BEFORE INSERT ON modele
+	FOR EACH ROW 
+	BEGIN
+    IF NOT(EXISTS(SELECT * FROM dostepni_producenci WHERE dostepni_producenci.marka = NEW.marka)) THEN
+		signal sqlstate '45000';
+    END IF; 
+END $$
+DELIMITER ;
+
+-> usuwanie_modelu
+
+DELIMITER $$
+	CREATE TRIGGER usuwanie_modelu BEFORE DELETE ON modele
+	FOR EACH ROW 
+	BEGIN
+	DECLARE model_do_usuniecia INT;
+    SET model_do_usuniecia = OLD.id_modelu;
+	
+    -- teraz skoro wiemy jaki model zostal usuniety, to musimy usunac oferty, ktore zawieraja ten model
+	
+	DELETE FROM oferta WHERE oferta.id_modelu = model_do_usuniecia;
+END $$
+DELIMITER ;
+
+=======================================================================================================
+
+TABELA REZERWACJE:
+=======================================================================================================
+-> oferta_constriant
+
+DELIMITER $$
+	CREATE TRIGGER oferta_constraint BEFORE INSERT ON rezerwacje
+	FOR EACH ROW 
+	BEGIN
+    IF NOT(EXISTS(SELECT * FROM oferta WHERE oferta.id_oferty = NEW.id_oferty)) THEN
+		signal sqlstate '45000';
+    END IF; 
+END $$
+DELIMITER ;
+
+-> klient_constraint
+
+DELIMITER $$
+	CREATE TRIGGER klient_constraint BEFORE INSERT ON rezerwacje
+	FOR EACH ROW 
+	BEGIN
+    IF NOT(EXISTS(SELECT * FROM klienci WHERE klienci.id_klienta = NEW.id_klienta)) THEN
+		signal sqlstate '45000';
+    END IF;
+END $$
+DELIMITER ;
+
+-> usuwanie_rezerwacji - UWAGA TRIGGER NIE DZIAŁA, WIĘC ZASTĄPIMY JEGO DZIAŁANIE METODAMI W APLIKACJI (AKTUALNIE NIE MA GO W BAZIE DANYCH)
+
+DELIMITER $$
+	CREATE TRIGGER usuwanie_rezerwacji BEFORE DELETE ON rezerwacje
+	FOR EACH ROW 
+	BEGIN
+	DECLARE ilosc_sztuk_usunietej_rezerwacji INT;
+	DECLARE id_oferty_usunietej_rezerwacji INT;
+    SET ilosc_sztuk_usunietej_rezerwacji = OLD.ilosc_zamowionych_sztuk;
+	SET id_oferty_usunietej_rezerwacji = OLD.id_oferty;
+	
+    -- teraz skoro wiemy jaka rezerwacja zostal anulowana, to musimy dodac ilosc_zamowionych_sztuk do stanu magazynowego oferty, ktorej dotyczyla rezerwacja
+	
+	UPDATE oferta SET oferta.stan_magazynowy = oferta.stan_magazynowy + ilosc_sztuk_usunietej_rezerwacji WHERE oferta.id_oferty = id_oferty_usunietej_rezerwacji;
+END $$
+DELIMITER ;
+=======================================================================================================
+
+TABELA KLIENCI:
+=======================================================================================================
+-> usuwanie_klienta
+
+DELIMITER $$
+	CREATE TRIGGER usuwanie_klienta BEFORE DELETE ON klienci
+	FOR EACH ROW 
+	BEGIN
+	DECLARE klient_do_usuniecia INT;
+    SET klient_do_usuniecia = OLD.id_klienta;
+	
+    -- teraz skoro wiemy jaki klient zostal usuniety, to musimy usunac rezerwacje, ktore sa tego klienta
+	
+	DELETE FROM rezerwacje WHERE rezerwacje.id_klienta = klient_do_usuniecia;
+END $$
+DELIMITER ;
+
+=======================================================================================================
+
+6) Utworzenie transakcji:
+
+-> rezerwacja_modelu
+
+DELIMITER $$
+	CREATE PROCEDURE rezerwacja_modelu(IN id_oferty_do_rezerwacji INT, IN id_klienta_do_rezerwacji INT, IN ilosc INT)
+	BEGIN
+	
+	START TRANSACTION;
+    
+    INSERT INTO rezerwacje(id_oferty, id_klienta, ilosc_zamowionych_sztuk, data_rezerwacji)
+		VALUES(id_oferty_do_rezerwacji, id_klienta_do_rezerwacji, ilosc, CURDATE());
+	
+    UPDATE oferta SET stan_magazynowy = (stan_magazynowy - ilosc) WHERE id_oferty = id_oferty_do_rezerwacji;
+    
+    IF (SELECT stan_magazynowy FROM oferta WHERE id_oferty = id_oferty_do_rezerwacji) >=0 THEN COMMIT;
+    ELSE ROLLBACK;
+    END IF;
+END $$
+DELIMITER ;
+
+7) Utworzenie procedur: 
+
+-> oblicz_cene_calkowita
+
+DELIMITER $$
+	CREATE PROCEDURE oblicz_cene_calkowita(IN idModelu INT, IN kolor VARCHAR(20), IN pakiet VARCHAR(20), OUT wynik INT)
+	BEGIN 
+	DECLARE cena_bazowa_modelu INT;
+	DECLARE cenaKoloru INT;
+	DECLARE cenaPakietu INT;
+
+	SET cena_bazowa_modelu = (SELECT cena_bazowa FROM modele WHERE modele.id_modelu = idModelu LIMIT 1);
+	SET cenaKoloru = (SELECT cena_koloru FROM kolory WHERE kolory.nazwa_koloru = kolor LIMIT 1);
+	SET cenaPakietu = (SELECT cena_pakietu FROM pakiety WHERE pakiety.nazwa_pakietu = pakiet LIMIT 1);
+
+	SET wynik = cena_bazowa_modelu + cenaKoloru + cenaPakietu;
+END$$
+DELIMITER ;
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
